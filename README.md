@@ -79,7 +79,7 @@ Application/
 │
 ├── lib/
 │   ├── imgui/
-│   └── other dependencies/
+│   └── kirkode/
 │
 └── Application.sln
 ```
