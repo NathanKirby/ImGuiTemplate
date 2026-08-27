@@ -47,7 +47,7 @@ A lightweight C++ application template for building desktop applications with **
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/NathanKirby/ImGuiTemplate.git
 ```
 
 2. Open the solution file in Visual Studio.
