@@ -7,7 +7,7 @@
 #include "App.h"
 
 // Window settings
-static constexpr const wchar_t* WINDOW_NAME = L"Unreal Package Manipulator";
+static constexpr const wchar_t* WINDOW_NAME = L"ImGui Template";
 static constexpr int32_t WINDOW_WIDTH = 1280;
 static constexpr int32_t WINDOW_HEIGHT = 720;
 
