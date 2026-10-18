@@ -89,13 +89,15 @@ bool Fonts::FontsLoaded() noexcept {
 	return fontsLoaded.load();
 }
 
-#ifdef IMPORT_FONTS
 ImFont* Fonts::GetFont(ImGuiIO& io, const std::string& name) noexcept {
+#ifdef IMPORT_FONTS
 	if (!fontsLoaded.load()) return nullptr;
 	auto it = fonts.find(name);
 	if (it == fonts.end()) {
 		return io.FontDefault;
 	}
 	return it->second;
-}
+#else
+	return io.FontDefault;
 #endif // IMPORT_FONTS
+}
