@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -108,18 +108,25 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)lib\imgui-v1.92.6;$(ProjectDir)lib\kirkode-v2.6.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)lib;$(ProjectDir)resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PreprocessToFile>false</PreprocessToFile>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d9.lib;dwmapi.lib;Shell32.lib;imgui_d.lib;kirkode_library_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>powershell -NoProfile -ExecutionPolicy Bypass -File "$(ProjectDir)resources\build.ps1" -VersionHeader "$(ProjectDir)resources\version.hpp"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Running build.ps1...</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -127,76 +134,106 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)lib\imgui-v1.92.6;$(ProjectDir)lib\kirkode-v2.6.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)lib;$(ProjectDir)resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <Optimization>MaxSpeed</Optimization>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d9.lib;dwmapi.lib;Shell32.lib;imgui.lib;kirkode_library.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>powershell -NoProfile -ExecutionPolicy Bypass -File "$(ProjectDir)resources\build.ps1" -VersionHeader "$(ProjectDir)resources\version.hpp"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Running build.ps1...</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
-  
+
   <!-- SOURCE FILES -->
   <ItemGroup>
-    
     <!-- Pre-Compiled Header -->
     <ClCompile Include="source\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    
-    <!-- Project -->
-    <ClCompile Include="source\App.cpp" />
-    <ClCompile Include="source\Main.cpp" />
-    
-    <!-- KirKode -->
-    <ClCompile Include="lib\kirkode-v2.6.1\source\clock.cpp" />
-    <ClCompile Include="lib\kirkode-v2.6.1\source\io.cpp" />
-    <ClCompile Include="lib\kirkode-v2.6.1\source\ran.cpp" />
-    <ClCompile Include="lib\kirkode-v2.6.1\source\str.cpp" />
-    
-    <!-- ImGui -->
-    <ClCompile Include="lib\imgui-v1.92.6\imgui\backends\imgui_impl_dx9.cpp" />
-    <ClCompile Include="lib\imgui-v1.92.6\imgui\backends\imgui_impl_win32.cpp" />
-    <ClCompile Include="lib\imgui-v1.92.6\imgui\imgui.cpp" />
-    <ClCompile Include="lib\imgui-v1.92.6\imgui\imgui_draw.cpp" />
-    <ClCompile Include="lib\imgui-v1.92.6\imgui\imgui_tables.cpp" />
-    <ClCompile Include="lib\imgui-v1.92.6\imgui\imgui_widgets.cpp" />
+
+    <!-- Source -->
+    <ClCompile Include="source\app.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\fonts.cpp" />
   </ItemGroup>
-  
+
   <!-- HEADER FILES -->
   <ItemGroup>
-    
-    <!-- Project -->
-    <ClInclude Include="include\App.h" />
+    <!-- Include -->
+    <ClInclude Include="include\app.h" />
+    <ClInclude Include="include\fonts.h" />
+    <ClInclude Include="include\log.hpp" />
     <ClInclude Include="include\pch.h" />
-    
-    <!-- KirKode -->
-    <ClInclude Include="lib\kirkode-v2.6.1\include\impl\kirkode_bin.hpp" />
-    <ClInclude Include="lib\kirkode-v2.6.1\include\impl\kirkode_clock.h" />
-    <ClInclude Include="lib\kirkode-v2.6.1\include\impl\kirkode_io.h" />
-    <ClInclude Include="lib\kirkode-v2.6.1\include\impl\kirkode_log.hpp" />
-    <ClInclude Include="lib\kirkode-v2.6.1\include\impl\kirkode_ran.h" />
-    <ClInclude Include="lib\kirkode-v2.6.1\include\impl\kirkode_str.h" />
-    <ClInclude Include="lib\kirkode-v2.6.1\include\kirkode.h" />
-    <ClInclude Include="lib\kirkode-v2.6.1\include\kirkode_types.h" />
-    
+    <ClInclude Include="include\settings.hpp" />
+
     <!-- ImGui -->
-    <ClInclude Include="lib\imgui-v1.92.6\imgui\backends\imgui_impl_dx9.h" />
-    <ClInclude Include="lib\imgui-v1.92.6\imgui\backends\imgui_impl_win32.h" />
-    <ClInclude Include="lib\imgui-v1.92.6\imgui\imconfig.h" />
-    <ClInclude Include="lib\imgui-v1.92.6\imgui\imgui.h" />
-    <ClInclude Include="lib\imgui-v1.92.6\imgui\imgui_internal.h" />
-    <ClInclude Include="lib\imgui-v1.92.6\imgui\imstb_rectpack.h" />
-    <ClInclude Include="lib\imgui-v1.92.6\imgui\imstb_textedit.h" />
-    <ClInclude Include="lib\imgui-v1.92.6\imgui\imstb_truetype.h" />
+    <ClInclude Include="lib\imgui-v1.93.0\imconfig.h" />
+    <ClInclude Include="lib\imgui-v1.93.0\imgui.h" />
+    <ClInclude Include="lib\imgui-v1.93.0\imgui_impl_dx9.h" />
+    <ClInclude Include="lib\imgui-v1.93.0\imgui_impl_win32.h" />
+    <ClInclude Include="lib\imgui-v1.93.0\imgui_internal.h" />
+    <ClInclude Include="lib\imgui-v1.93.0\imstb_rectpack.h" />
+    <ClInclude Include="lib\imgui-v1.93.0\imstb_textedit.h" />
+    <ClInclude Include="lib\imgui-v1.93.0\imstb_truetype.h" />
+
+    <!-- KirKode -->
+    <ClInclude Include="lib\kirkode-v2.6.1\impl\kirkode_bin.hpp" />
+    <ClInclude Include="lib\kirkode-v2.6.1\impl\kirkode_bnd.hpp" />
+    <ClInclude Include="lib\kirkode-v2.6.1\impl\kirkode_clock.h" />
+    <ClInclude Include="lib\kirkode-v2.6.1\impl\kirkode_io.hpp" />
+    <ClInclude Include="lib\kirkode-v2.6.1\impl\kirkode_kson.h" />
+    <ClInclude Include="lib\kirkode-v2.6.1\impl\kirkode_log.hpp" />
+    <ClInclude Include="lib\kirkode-v2.6.1\impl\kirkode_ran.h" />
+    <ClInclude Include="lib\kirkode-v2.6.1\impl\kirkode_str.h" />
+    <ClInclude Include="lib\kirkode-v2.6.1\kirkode.h" />
+    <ClInclude Include="lib\kirkode-v2.6.1\kirkode_types.h" />
+
+    <!-- Resource -->
+    <ClInclude Include="resources\resource.h" />
+    <ClInclude Include="resources\version.hpp" />
   </ItemGroup>
+
+  <!-- Library includes -->
+  <ItemGroup>
+    <Library Include="lib\imgui.lib" />
+    <Library Include="lib\imgui_d.lib" />
+    <Library Include="lib\kirkode_library.lib" />
+    <Library Include="lib\kirkode_library_d.lib" />
+  </ItemGroup>
+
+  <!-- Build Pre-Event -->
+  <ItemGroup>
+    <None Include="resources\build.ps1" />
+  </ItemGroup>
+
+  <!-- Resources -->
+  <ItemGroup>
+    <ResourceCompile Include="resources\ImGuiTemplate.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\icon.ico">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </None>
+  </ItemGroup>
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
