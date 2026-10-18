@@ -4,8 +4,6 @@
 #include <unordered_map>
 #include <atomic>
 
-#include "settings.hpp"
-
 struct ImFont;
 struct ImGuiIO;
 
@@ -17,8 +15,6 @@ public:
 	static void LoadFonts(ImGuiIO& io) noexcept;
 public:
 	static bool FontsLoaded() noexcept;
-#ifdef IMPORT_FONTS
 public:
 	static ImFont* GetFont(ImGuiIO& io, const std::string& name) noexcept;
-#endif // IMPORT_FONTS
 };
