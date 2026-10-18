@@ -64,26 +64,6 @@ The template is already configured with:
 * Main application loop
 * Cleanup handling
 
-## Project Structure
-
-```
-Application/
-├── include/
-|   ├── App.h
-│   └── pch.h
-│
-├── source/
-│   ├── App.cpp
-│   ├── Main.cpp
-│   └── pch.cpp
-│
-├── lib/
-│   ├── imgui/
-│   └── kirkode/
-│
-└── Application.sln
-```
-
 ## Customization
 
 The main UI logic can be added inside the application render function.
