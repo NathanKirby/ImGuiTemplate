@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 
+#include "settings.hpp"
+
 struct ImGuiIO;
 
 class App {
@@ -16,14 +18,18 @@ private:
 private:
 	inline static std::atomic<bool> running{ false };
 	inline static std::atomic<bool> clean{ false };
+#ifdef WINDOW_DEBUG
 public:
-	static void Entrance() noexcept;
-	static void Render(ImGuiIO& io) noexcept;
-	static void UpdateWindowSize(const uint32_t newX, const uint32_t newY) noexcept;
-	static void Cleanup() noexcept;
+	static void Debug();
+#endif // WINDOW_DEBUG
 public:
-	static void CaptureArguments(const int32_t argCount, char* args[]) noexcept;
-	static void CloseWindow() noexcept;
+	static void Entrance();
+	static void Render(ImGuiIO& io);
+	static void UpdateWindowSize(const uint32_t newX, const uint32_t newY);
+	static void Cleanup();
+public:
+	static void CaptureArguments(std::vector<std::string>&& args);
+	static void CloseWindow();
 public:
 	static bool IsRunning() noexcept;
 };
