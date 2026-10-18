@@ -14,11 +14,12 @@
 // ImGui
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include <imgui/imgui.h>
-#include <imgui/backends/imgui_impl_dx9.h>
-#include <imgui/backends/imgui_impl_win32.h>
+#include <imgui/imgui_impl_dx9.h>
+#include <imgui/imgui_impl_win32.h>
 
 // KirKode
-#include <kirkode.h>
+#define KIR_EXCLUDE_LOG
+#include <kirkode/kirkode.h>
 
 // Windows (must be last)
 #define WIN32_LEAN_AND_MEAN
